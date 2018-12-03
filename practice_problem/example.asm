@@ -4,7 +4,7 @@
 ; * Practice Problem		*
 ; ***************************
 
-; ***** PSEUDOCODE *****
+											; ***** PSEUDOCODE *****
 ; #include <stdio.h>
 ; int mymul(int a, int b);
 ; int main() 
@@ -33,14 +33,14 @@
 
 ; outputs
 ; gcd: 6
-; ***** END OF PSEUDOCODE *****
+											; ***** END OF PSEUDOCODE *****
 
-.586
+.586										; *** HEADERS ***
 .MODEL FLAT
 INCLUDE io.h
-.STACK 4096
+.STACK 40
 
-.DATA										; ***VARIABLE DECLARATION***
+.DATA										; *** VARIABLE DECLARATION ***
 string		BYTE	40 DUP (?)
 varA		DWORD	?
 varB		DWORD	?
@@ -53,7 +53,7 @@ result		BYTE	"a x b = ", 0
 
 
 
-.CODE										; ***CODE BLOCK***
+.CODE										; *** CODE BLOCK ***
 
 ; int main() 
 ; {
@@ -76,6 +76,7 @@ _MainProc PROC
 
 		mov     eax, 0
         ret
+
 _MainProc ENDP
 ; }
 
@@ -86,12 +87,12 @@ mymul PROC
 		mov		ebp, esp
 
 ;		if (b > 0) {
-			mov		eax, [ebp + 12]
-			cmp		eax, 0
+			mov		eax, [ebp + 12]	; b
+			cmp		eax, 0			; b > 0
 			jna		finish
 
 ;			return mymul(a , b - 1) + a;
-				dec		eax
+				dec		eax			
 				push	eax			; b-1
 				push	[ebp + 8]	; a
 				call	mymul
@@ -110,5 +111,5 @@ finish:
 mymul ENDP
 ; }
 
-END											; ***END OF PROGRAM***						
+END											; *** END OF PROGRAM ***						
 
