@@ -87,7 +87,7 @@ gcd PROC
 			; return (a - b, b);
 					sub		eax, ebx
 					push	ebx			; b
-					push	eax			; a - b, lifo
+					push	eax			; a - b = a, lifo
 
 					call	gcd
 					add		esp, 8
@@ -99,7 +99,7 @@ gcd PROC
 	
 			; return (a, b - a)
 					sub		ebx, eax
-					push	ebx			; b - a
+					push	ebx			; b - a = b, lifo
 					push	eax			; a
 
 					call	gcd
