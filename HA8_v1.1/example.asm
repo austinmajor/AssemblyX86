@@ -32,7 +32,6 @@ INCLUDE io.h
 string		BYTE	40 DUP (?)
 varA		DWORD	?
 varB		DWORD	?
-answer		DWORD	?
 
 print		BYTE	11 DUP (?), 0
 
@@ -61,7 +60,7 @@ _MainProc PROC
 		call	gcd
 		add		esp, 8
 
-		dtoa    print, answer
+		dtoa    print, eax
 		output	result, print
 
 		mov     eax, 0
@@ -75,10 +74,7 @@ gcd PROC
 
 		push	ebp
 		mov		ebp, esp
-
-;recur:
-		;cmp		eax, ebx
-		;je		done
+		push	ebx
 
 		mov		eax, [ebp + 8]  ; a
 		mov		ebx, [ebp + 12] ; b
@@ -86,20 +82,16 @@ gcd PROC
 		je		done
 
 	; if ( a > b ) {
-			;mov		eax, [ebp + 8]  ; a
-			;mov		ebx, [ebp + 12] ; b
-			cmp		eax, ebx
 			jb		alb
 	
 			; return (a - b, b);
 					sub		eax, ebx
-					push	eax			; a - b
-					push	[ebp + 12]	; b
+					push	ebx			; b
+					push	eax			; a - b, lifo
+
 					call	gcd
 					add		esp, 8
-					mov		eax, [ebp + 12]     ; these were add
-					pop		ebp
-					ret
+					jmp		done
 	; }
 	
 	; if (a < b) {
@@ -108,18 +100,15 @@ gcd PROC
 			; return (a, b - a)
 					sub		ebx, eax
 					push	ebx			; b - a
-					push	[ebp + 8]	; a
+					push	eax			; a
+
 					call	gcd
 					add		esp, 8
-					mov		eax, [ebp + 8]    ; these were add
-					pop		ebp
-					ret
 	; }
 
 ; return a;
 done:
-			mov		answer, eax
-			mov		eax, 0
+			pop		ebx
 			pop		ebp
 			ret
 		
