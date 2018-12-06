@@ -1,7 +1,7 @@
 ; ***************************
 ; * Author:  Austin Major	*
-; * Date:    11/24/2018		*
-; * Home Assignment 8		*
+; * Date:    12/6/2018		*
+; * Test 2		            *
 ; ***************************
 
 											; *** PSEUDOCODE ***
