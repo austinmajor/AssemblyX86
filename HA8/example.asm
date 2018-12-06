@@ -6,13 +6,13 @@
 
 											; *** PSEUDOCODE ***
 ; unsigned int gcd ( unsigned int a, unsigned int b ) {
-;   if ( a > b )
-;     return gcd ( a - b, b ) ;
+;ï¿½  if ( a > b )
+;ï¿½ ï¿½  return gcd ( a - b, b ) ;
 
-;   if ( a < b )
-;     return gcd ( a, b - a ) ;
+;ï¿½  if ( a < b )
+;ï¿½ ï¿½  return gcd ( a, b - a ) ;
 
-;   return a ;
+;ï¿½  return a ;
 ; }
 
 ; inputs
@@ -90,6 +90,7 @@ gcd PROC
 					push	eax			; a - b = a, lifo
 
 					call	gcd
+					
 					add		esp, 8
 					jmp		done
 	; }
@@ -103,6 +104,7 @@ gcd PROC
 					push	eax			; a
 
 					call	gcd
+
 					add		esp, 8
 	; }
 
