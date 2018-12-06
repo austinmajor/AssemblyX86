@@ -85,26 +85,28 @@ mymul PROC
 
 		push	ebp
 		mov		ebp, esp
+		push	ebx
 
 ;		if (b > 0) {
-			mov		eax, [ebp + 12]	; b
-			cmp		eax, 0			; b > 0
+			mov		eax, [ebp + 8]	; a
+			mov		ebx, [ebp + 12]	; b
+			cmp		ebx, 1			; b > 0 = stop at 1, this is the equivalent
 			jna		finish
 
 ;			return mymul(a , b - 1) + a;
-				dec		eax			
-				push	eax			; b-1
-				push	[ebp + 8]	; a
+				dec		ebx			
+				push	ebx			; b-1
+				push	eax			; a
+
 				call	mymul
+
 				add		esp, 8
 				add		eax, [ebp + 8]
-				pop		ebp
-				ret
 ;		}
 
 ; return 0
 finish:
-		mov		eax, 0
+		pop		ebx
 		pop		ebp
 		ret
 
